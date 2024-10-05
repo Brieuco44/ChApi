@@ -1,0 +1,23 @@
+﻿@inject ChatService ChatService
+<h3>Image de Chat Aléatoire</h3>
+
+@if (isLoading)
+
+{
+    <p>Chargement...</p>
+}
+
+else if (chatImage != null)
+
+{
+    <img src="@chatImage.Url" alt="Un chat aléatoire" style="max-width: 100%; height: auto;" />
+    <br/>
+    <p>@chatImage.Race[0].Nom</p>
+    <button class="btn btn-primary" @onclick="NouveauChat">Afficher une autre image</button>
+}
+
+else
+
+{
+    <p>Impossible de charger l'image.</p>
+}

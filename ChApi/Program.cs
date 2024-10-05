@@ -1,4 +1,6 @@
 using ChApi.Components;
+using ChApi.Services;
+using ChApi.Models;
 using MudBlazor.Services;
 
 namespace ChApi
@@ -12,6 +14,7 @@ namespace ChApi
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddHttpClient<ChatService>();
 
             builder.Services.AddMudServices();
 
