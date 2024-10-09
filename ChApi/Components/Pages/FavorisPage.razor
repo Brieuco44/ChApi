@@ -1,0 +1,34 @@
+﻿@page "/favoris"
+
+<PageTitle>Favoris</PageTitle>
+
+<MudText Align="Align.Center" Typo="Typo.h2">Mes favoris</MudText>
+        @if (ListeAffichage == null)
+        {
+            <MudPaper Elevation="4" Class="pa-4 img-container">
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium" Class="d-block mx-auto" />
+            </MudPaper>
+        }
+        else if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+        }
+        else if (ListeAffichage != null)
+        {
+            @foreach (var Race in ListeAffichage)
+            {
+                <MudPaper Elevation="4" Class="pa-4 ma-5">
+                    <MudItem xs="12">
+                        <MudText Typo="Typo.h4" HtmlTag="strong">@Race.Key : </MudText>
+                    </MudItem>
+                    <MudGrid Class="pa-4" Justify="Justify.Center">
+                        @foreach (var UnChat in Race.Value)
+                        {
+                            <MudItem xs="4">
+                                    <ChatComposant Chat="@UnChat" VoirDescription="false" VoirOrigine="false" VoirRace="false"></ChatComposant>
+                            </MudItem>
+                        }   
+                    </MudGrid>
+                </MudPaper>
+            }
+        }

@@ -1,0 +1,46 @@
+﻿@page "/race"
+@inject RaceService RaceService
+@inject ChatService ChatService
+
+<PageTitle>Race</PageTitle>
+    <MudPaper Elevation="4" Class="pa-4">
+        <MudText Typo="Typo.h4" Align="Align.Center">Sélectionnez une Race de Chat</MudText>
+         <MudGrid Spacing="5" Justify="Justify.Center">
+             <MudItem xs="12">
+                <MudSelect T="string" Label="Race" Dense="true" Value="@selectedRaceId" ValueChanged="value => OnRaceSelected(value)">
+                        <MudSelectItem T="string" Value="null"></MudSelectItem>
+                    @foreach (var Race in RaceChat)
+                    {
+                        <MudSelectItem T="string" Value="@Race.Id">@Race.Nom</MudSelectItem>
+                    }
+                </MudSelect>
+             </MudItem>
+            @if (isLoading)
+            {
+                <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium" Class="d-block mx-auto" />
+            }
+            else if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+            }
+            else if (Chats != null && Chats.Count > 0)
+            {
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Align="Align.Start"><strong>Origine :</strong> @Chats[0].Race[0].Origine</MudText>
+                    <MudText Typo="Typo.subtitle1" Align="Align.Start"><strong>Description :</strong> @Chats[0].Race[0].Description</MudText>
+                </MudItem>
+                @foreach (var UnChat in Chats)
+                {
+                    <MudItem xs="12">
+                        <ChatComposant Chat="@UnChat" VoirDescription="false" VoirOrigine="false" VoirRace="false"></ChatComposant>
+                    </MudItem>
+                }
+            }
+            else if (!string.IsNullOrEmpty(selectedRaceId))
+            {
+                <MudItem xs="12">
+                    <MudText Typo="Typo.subtitle1" Align="Align.Center">Aucune image trouvée pour cette race.</MudText>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudPaper>

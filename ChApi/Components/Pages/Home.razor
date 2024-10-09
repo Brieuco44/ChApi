@@ -1,7 +1,33 @@
 ﻿@page "/"
+@inject ChatService ChatService
 
 <PageTitle>Home</PageTitle>
+<MudText Typo="Typo.h4" Align="Align.Center">Chat Aléatoire</MudText>
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="12" md="6" lg="4">
+        @if (isLoading)
+        {
+            <MudPaper Elevation="4" Class="pa-4 img-container">
+                 <MudProgressCircular Color="Color.Primary" Indeterminate="true" Size="Size.Medium" Class="d-block mx-auto" />
+            </MudPaper>
+        }
 
-<h1>Hello, world!</h1>
+        else if (!string.IsNullOrEmpty(errorMessage))
 
-<ChatComposant></ChatComposant>
+        {
+            <MudAlert Severity="Severity.Error">@errorMessage</MudAlert>
+        }
+        else if (chatImage != null)
+        {
+            <ChatComposant @bind-Chat="@chatImage" VoirDescription="false" VoirOrigine="false" VoirRace="true"></ChatComposant>
+        }
+        <MudGrid>
+            <MudItem xs="6">    
+                <MudIconButton Icon="@Icons.Material.Rounded.Close" Color="Color.Error" aria-label="Ajouter aux favoris" Size="Size.Large" OnClick="NouveauChat" Class="mx-auto d-block mt-2"></MudIconButton>
+            </MudItem>
+            <MudItem xs="6">
+                <MudIconButton Icon="@Icons.Material.Rounded.Favorite" Color="Color.Success" aria-label="Suivant" Size="Size.Large" OnClick="() => Ajouter(chatImage)" Class="mx-auto d-block mt-2">Afficher une autre image</MudIconButton>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>

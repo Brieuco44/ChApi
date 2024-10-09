@@ -14,6 +14,7 @@ namespace ChApi
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            builder.Services.AddHttpClient<RaceService>();
             builder.Services.AddHttpClient<ChatService>();
 
             builder.Services.AddMudServices();

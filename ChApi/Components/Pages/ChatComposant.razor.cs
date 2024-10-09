@@ -1,44 +1,24 @@
 ﻿using ChApi.Models;
 using ChApi.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace ChApi.Components.Pages
 {
-    public partial class ChatComposant 
+    public partial class ChatComposant
     {
-        private Chat chatImage;
-        private bool isLoading = true;
-        private string? errorMessage;
+        [Parameter]
+        public required Chat Chat { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
-            await ChercherChat();
-        }
+        [Parameter]
+        public EventCallback<Chat> ChatChanged { get; set; }
 
-        private async Task ChercherChat()
-        {
-            isLoading = true;
-            errorMessage = null;
-            try
-            {
-                chatImage = await ChatService.GetRandomChatAsync();
-                if (chatImage == null)
-                {
-                    errorMessage = "Aucune image trouvée.";
-                }
-            }
-            catch (Exception ex)
-            {
-                errorMessage = $"Erreur lors du chargement de l'image : {ex.Message}";
-            }
-            finally
-            {
-                isLoading = false;
-            }
-        }
+        [Parameter]
+        public required bool VoirRace { get; set; }
 
-        private async Task NouveauChat()
-        {
-            await ChercherChat();
-        }
+        [Parameter]
+        public required bool VoirDescription { get; set; }
+
+        [Parameter]
+        public required bool VoirOrigine { get; set; }
     }
 }

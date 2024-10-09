@@ -21,4 +21,8 @@
     <_GlobalJsonStartingDir Remove="Components\Layout\NewFolder\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Models\Favoris.cs" />
+  </ItemGroup>
+
 </Project>

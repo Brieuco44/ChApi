@@ -1,23 +1,20 @@
 ﻿@inject ChatService ChatService
-<h3>Image de Chat Aléatoire</h3>
 
-@if (isLoading)
-
-{
-    <p>Chargement...</p>
-}
-
-else if (chatImage != null)
-
-{
-    <img src="@chatImage.Url" alt="Un chat aléatoire" style="max-width: 100%; height: auto;" />
+<MudPaper Elevation="4" Class="pa-4">
+    <div class="img-container">
+        <img src="@Chat.Url" alt="Un chat" />
+    </div>
+    @if (VoirRace)
+    {
+        <MudText Typo="Typo.subtitle1" Align="Align.Center"><strong>Race :</strong> @Chat.Race[0].Nom</MudText>
+    }
+     @if (VoirOrigine)
+    {
+        <MudText Typo="Typo.subtitle1" Align="Align.Center"><strong>Race :</strong> @Chat.Race[0].Origine</MudText>
+    }
+    @if (VoirDescription)
+    {
+        <MudText Typo="Typo.subtitle1" Align="Align.Center"><strong>Description :</strong> @Chat.Race[0].Description</MudText>
+    }
     <br/>
-    <p>@chatImage.Race[0].Nom</p>
-    <button class="btn btn-primary" @onclick="NouveauChat">Afficher une autre image</button>
-}
-
-else
-
-{
-    <p>Impossible de charger l'image.</p>
-}
+</MudPaper>

@@ -11,17 +11,18 @@
 <MudSnackbarProvider />
 
 <div class="page">
-    <div class="sidebar">
+    <MudLayout>
         <NavMenu />
-    </div>
-
-    <main>
-        <article class="content px-4">
-            <MudContainer MaxWidth="MaxWidth.Medium">  
-                @Body
-            </MudContainer>
-        </article>
-    </main>
+        <main>
+            <article class="content px-4">
+                <MudMainContent>
+                    <MudContainer MaxWidth="MaxWidth.Medium" Class="ma-auto pa-4">  
+                        @Body
+                    </MudContainer>
+                </MudMainContent>
+            </article>
+        </main>
+    </MudLayout>
 </div>
 
 <div id="blazor-error-ui">
