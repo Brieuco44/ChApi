@@ -16,5 +16,10 @@
     {
         <MudText Typo="Typo.subtitle1" Align="Align.Center"><strong>Description :</strong> @Chat.Race[0].Description</MudText>
     }
+    @if (VoirBtnSupp)
+    {
+        <MudIconButton Icon="@Icons.Material.Rounded.Close" Color="Color.Error" aria-label="Ajouter aux favoris" Size="Size.Large" OnClick="() => AppelSuppression(Chat)" Class="mx-auto d-block"></MudIconButton>
+
+    }
     <br/>
 </MudPaper>

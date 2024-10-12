@@ -35,5 +35,30 @@ namespace ChApi.Components.Pages
                 errorMessage = $"Erreur lors du chargement des Chats : {ex.Message}";
             }
         }
+
+        // Supprimer un chat des favoris
+        private async Task Supprimer(Chat Chat)
+        {
+            if (ListeFavoris.Contains(Chat))
+            {
+                ListeFavoris.Remove(Chat);
+                try
+                {
+                    var json = JsonSerializer.Serialize(ListeFavoris, new JsonSerializerOptions { WriteIndented = true });
+                    File.WriteAllText(jsonPath, json);
+                    AfficherChats();
+                }
+                catch (Exception ex)
+                {
+                    errorMessage = $"Erreur lors de l'enregistrement des favoris : {ex.Message}";
+                }
+            }
+        }
+
+        private void HandleChildButtonClick(int ChatId)
+        {
+            // Mettre à jour le message avec la valeur reçue depuis l'enfant
+            //Message = $"Message depuis l'enfant : {messageFromChild}";
+        }
     }
 }

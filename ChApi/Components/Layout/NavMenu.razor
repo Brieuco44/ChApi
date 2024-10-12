@@ -1,16 +1,9 @@
 ﻿
-<MudAppBar Color="Color.Primary" Elevation="4">
+<MudAppBar Color="Color.Primary" Elevation="2">
     <MudText Typo="Typo.h6" Class="ml-2">ChApi</MudText>
     <MudSpacer />
-    <!-- Menu des liens principaux dans la navbar -->
-    <MudNavLink Color="Color.Inherit" class="nav-link" Href="/" Match="NavLinkMatch.All">
-        <MudIcon Icon="@Icons.Material.Rounded.Home"></MudIcon> Accueil
-    </MudNavLink>
-    <MudNavLink class="nav-link" Href="/race">
-        <MudIcon Color="Color.Inherit" Icon="@Icons.Material.Rounded.FormatListBulleted"></MudIcon> Race
-    </MudNavLink>
-    <MudNavLink class="nav-link" Href="/favoris">
-        <MudIcon Icon="@Icons.Material.Rounded.Favorite"></MudIcon> Favoris
-    </MudNavLink>
+    <MudIconButton Href="/" Color="Color.Inherit" Icon="@Icons.Material.Rounded.Home"></MudIconButton>
+    <MudIconButton Href="/race" Color="Color.Inherit" Icon="@Icons.Material.Rounded.FormatListBulleted"></MudIconButton>
+    <MudIconButton Href="/favoris" Color="Color.Inherit" Icon="@Icons.Material.Rounded.Favorite"></MudIconButton>
 </MudAppBar>
 

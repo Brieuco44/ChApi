@@ -20,5 +20,19 @@ namespace ChApi.Components.Pages
 
         [Parameter]
         public required bool VoirOrigine { get; set; }
+
+        [Parameter]
+        public required bool VoirBtnSupp { get; set; }
+
+        [Parameter]
+        public EventCallback<Chat> BoutonClique { get; set; }
+
+        private async Task AppelSuppression(Chat Chat)
+        {
+            if (BoutonClique.HasDelegate)
+            {
+                await BoutonClique.InvokeAsync(Chat);
+            }
+        }
     }
 }

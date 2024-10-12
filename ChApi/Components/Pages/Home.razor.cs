@@ -44,12 +44,20 @@ namespace ChApi.Components.Pages
             }
         }
 
+        // Ajouter un chat en favoris
         private async Task Ajouter(Chat ChatFavoris)
         {
             if (!ListeFavoris.Contains(ChatFavoris))
             {
                 ListeFavoris.Add(ChatFavoris);
             }
+            await Sauvegarder();
+            await NouveauChat();
+        }
+
+        //Sauvegarde le JSONcdes favoris
+        private async Task Sauvegarder()
+        {
             try
             {
                 var json = JsonSerializer.Serialize(ListeFavoris, new JsonSerializerOptions { WriteIndented = true });
@@ -59,7 +67,6 @@ namespace ChApi.Components.Pages
             {
                 errorMessage = $"Erreur lors de l'enregistrement des favoris : {ex.Message}";
             }
-            await NouveauChat();
         }
     }
 }
