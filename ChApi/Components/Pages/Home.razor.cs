@@ -6,22 +6,31 @@ namespace ChApi.Components.Pages
 {
     public partial class Home
     {
-        private Chat? chatImage;
-        private List<Chat>? ListeFavoris;
-        private bool isLoading = true;
-        private string? errorMessage;
-        private string jsonPath  = Path.Combine(Directory.GetCurrentDirectory(), "Favoris.json");
+        private Chat? chatImage; // Stocke l'image de chat actuelle, peut être null
+        private List<Chat> ListeFavoris = new(); // Liste des chats favoris, initialisée pour éviter null
+        private bool isLoading = true; // Indique si l'application est en cours de chargement
+        private string? errorMessage; // Message d'erreur à afficher en cas de problème, peut être null
+        private readonly string jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "Favoris.json"); // Chemin du fichier JSON pour stocker les favoris
 
+        /// <summary>
+        /// Méthode appelée lors de l'initialisation du composant.
+        /// Charge les favoris depuis le fichier JSON si le fichier existe, puis charge un nouveau chat.
+        /// </summary>
         protected override async Task OnInitializedAsync()
         {
             if (File.Exists(jsonPath))
             {
                 var jsonData = File.ReadAllText(jsonPath);
-                ListeFavoris = JsonSerializer.Deserialize<List<Chat>>(jsonData);
+                // Désérialise le JSON en liste de chats, gère le cas où jsonData est null ou incorrect
+                ListeFavoris = JsonSerializer.Deserialize<List<Chat>>(jsonData) ?? new List<Chat>();
             }
             await NouveauChat();
         }
 
+        /// <summary>
+        /// Charge une nouvelle image de chat aléatoire en utilisant ChatService.
+        /// Gère les erreurs en cas de problème lors du chargement de l'image.
+        /// </summary>
         private async Task NouveauChat()
         {
             isLoading = true;
@@ -44,10 +53,14 @@ namespace ChApi.Components.Pages
             }
         }
 
-        // Ajouter un chat en favoris
+        /// <summary>
+        /// Ajoute un chat aux favoris si ce dernier n'est pas déjà présent dans la liste.
+        /// Sauvegarde ensuite la liste mise à jour dans le fichier JSON.
+        /// </summary>
+        /// <param name="ChatFavoris">Le chat à ajouter aux favoris.</param>
         private async Task Ajouter(Chat ChatFavoris)
         {
-            if (!ListeFavoris.Contains(ChatFavoris))
+            if (ListeFavoris != null && !ListeFavoris.Contains(ChatFavoris))
             {
                 ListeFavoris.Add(ChatFavoris);
             }
@@ -55,7 +68,10 @@ namespace ChApi.Components.Pages
             await NouveauChat();
         }
 
-        //Sauvegarde le JSONcdes favoris
+        /// <summary>
+        /// Sauvegarde la liste des chats favoris dans un fichier JSON.
+        /// Gère les erreurs d'écriture dans le fichier et affiche un message d'erreur en cas de problème.
+        /// </summary>
         private async Task Sauvegarder()
         {
             try
@@ -69,4 +85,5 @@ namespace ChApi.Components.Pages
             }
         }
     }
+
 }
